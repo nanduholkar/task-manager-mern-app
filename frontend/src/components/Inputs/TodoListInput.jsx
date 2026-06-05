@@ -52,7 +52,7 @@ const TodoListInput = ({ todoList, setTodo }) => {
           className='card-btn text-nowrap'
           onClick={handleAddOption}
         >
-          <HiMiniPlus className="text-lg" />
+          <HiMiniPlus className="text-lg" /> Add
         </button>
       </div>
     </div>
