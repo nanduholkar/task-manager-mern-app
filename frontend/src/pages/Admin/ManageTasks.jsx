@@ -5,6 +5,7 @@ import axiosInstance from '../../utils/axiosInstance'
 import { API_PATHS } from '../../utils/apiPaths'
 import { LuFileSpreadsheet } from "react-icons/lu";
 import  TaskStatusTabs from "../../components/TaskStatusTabs";
+import  TaskCard from "../../components/Cards/TaskCard";
 
 
 const ManageTasks = () => {
@@ -27,11 +28,27 @@ const ManageTasks = () => {
     const statusSummary = responce.data?.statusSummary || {}
 
     const statusArray = [
-      {label: "All", count: statusSummary.all || 0},
-      {label: "Pending", count: statusSummary.pendingTasks || 0},
-      {label: "In Progress", count: statusSummary.inProgressTasks || 0},
-      {label: "Completed", count: statusSummary.completedTasks || 0}
-    ]
+    {
+    label: "All",
+    value: "All",
+    count: statusSummary.all || 0
+    },
+    {
+    label: "Pending",
+    value: "pending",
+    count: statusSummary.pendingTasks || 0
+    },
+    {
+      label: "In Progress",
+    value: "in-progress",
+    count: statusSummary.inProgressTasks || 0
+    },
+    {
+    label: "Completed",
+    value: "completed",
+    count: statusSummary.completedTasks || 0
+    }
+    ];
 
     setTabs(statusArray)
 
@@ -81,6 +98,28 @@ const ManageTasks = () => {
             </button>
             </div>
           )}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-4">
+          {allTasks?.map((item, idx) => (
+            <TaskCard
+              key={item._id}
+              title={item.title}
+              description={item.description}
+              priority={item.priority}
+              status={item.status}
+              progress={item.progress}
+              createdAt={item.createdAt}
+              dueDate={item.dueDate}
+              assignedTo={item.assignedTo?.map((item) => item.profileImageUrl)}
+              attachmentCount={item.attachment?.length || 0}
+              completedTodoCount={item.completedTodoCount || 0}
+              todoChecklist={item.todoChecklist || []}
+              onClick={() => {
+                handleClick(item)
+              }}
+            />
+          ))}
         </div>
       </div>
     </DashboardLayout>
