@@ -38,16 +38,17 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
     const selectedUserAvatar = allUsers  
       .filter((user) => selectedUsers.includes(user._id))
       .map((user) => user.profileImageUrl)
+      .filter(Boolean)
 
     useEffect(() => {
         getAllUsers();
     }, [])
 
     useEffect(() => {
-        if(selectedUsers.length === 0){
-            setTempSelectedUsers([])
-        }
+        setTempSelectedUsers(selectedUsers)
     }, [selectedUsers])
+
+
 
   return (
     <div className='space-y-4 mt-2'>
@@ -58,7 +59,12 @@ const SelectUsers = ({selectedUsers, setSelectedUsers}) => {
         )}
 
         {selectedUserAvatar.length > 0 && (
-            <div className='cursor-pointer'>
+            <div 
+            className='cursor-pointer' 
+            onClick={() => {
+                setTempSelectedUsers(selectedUsers)
+                setIsModalOpen(true)
+            }}>
                 <AvatarGroup avatars={selectedUserAvatar} maxVisible={3} />
             </div>
         )}
