@@ -34,7 +34,7 @@ connectDB()
 app.use("/api/auth", authRoutes)
 app.use("/api/users", userRoutes)
 app.use("/api/tasks", taskRoutes)
-app.use("/api/report", reportRoutes)
+app.use("/api/reports", reportRoutes)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")))
 
 // Start Server
