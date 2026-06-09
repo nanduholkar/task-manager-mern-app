@@ -61,9 +61,25 @@ const ManageTasks = () => {
     navigate(`/admin/create-task`, {state: {taskId: taskData._id}})
   }
 
-  const handleDownloadReport = async() => {
 
-  }
+  const handleDownloadReport = async () => {
+    try{
+      const responce = await axiosInstance.get(API_PATHS.REPORTS.EXPORT_TASKS, {
+        responseType: "blob"
+      })
+      const url = window.URL.createObjectURL(new Blob([responce.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute("download", "task_details.xlsx")
+      document.body.appendChild(link)
+      link.click()
+      link.parentNode.removeChild(link)
+      window.URL.revokeObjectURL(url)
+    }catch(error){
+      console.error("Error Downloading user details", error)
+      toast.error("Failed to download user details. Please try again.")
+    }
+  }  
 
   useEffect(() => {
     getAllTasks(filterStatus)
