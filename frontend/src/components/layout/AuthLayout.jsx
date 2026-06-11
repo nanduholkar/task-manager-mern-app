@@ -1,5 +1,5 @@
 import React from 'react'
-import UI_IMG from "../../assets/images/auth-img.jpg"
+import UI_IMG from "../../assets/images/auth2-img.svg"
 
 const AuthLayout = ({ children }) => {
   return (
